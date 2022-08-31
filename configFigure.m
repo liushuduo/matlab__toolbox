@@ -1,4 +1,4 @@
-function [] = configFigure(figHandle, axisHandle, format)
+function [fH] = ConfigFigure(aH, size_cm, varargin)
 %CONFIGFIGURE Config figure for specific scenarioes
 %   figHandle: handle of figure to process
 %   axisHandle: handle of axis to process
@@ -12,64 +12,61 @@ function [] = configFigure(figHandle, axisHandle, format)
 %   Signal Space and Information System Lab, ISEE, ZJU
 %   Email:      sliu35@zju.edu.cn
 
-    if nargin < 3
-        format = 'default'; 
-    end
+
+    % parse input arguments
+    p = inputParser;
+    addParameter(p, 'format', 'presentation');
+    parse(p, varargin{:})
     
-    format = lower(format);
+    fH = figure('Position', [0 0 800 600]);
+    tH = tiledlayout(fH, 1, 1, 'TileSpacing','tight', 'Padding','tight');
     
-    figHandle.Units = 'inches';
-    
-    % Show figure in the left-bottom corner of screen.
-    figHandle.Position(1:2) = [0 0];
-    
-    switch format
+    switch lower(format)
         
         case 'ieeetwocolumn'
-            figHandle.Position(3) = 7.16;   % width of two columns figure
-            lengthWidthRatio = 3 / 5;       
+            tH.Units = 'inches';
+            tH.OuterPosition = [0 0 7.16 7.16/5*3];
+            newAH = nexttile;
+            copyobj(aH, newAH);
                 
             % IEEE suggest fonts: Times New Roman, Helvetica, Cambira and Arial
-            axisHandle.FontName = 'Times New Roman';   
+            newAH.FontName = 'Times New Roman';   
             
             % Font size in figure should be 8-10 pts. 
-            axisHandle.FontSize = 8;        
+            newAH.FontSize = 8;        
     
         case 'ieeeonecolumn'
-            figHandle.Position(3) = 3.5;    % width of one column figure 
-            lengthWidthRatio = 3 / 4;
-            axisHandle.FontName = 'Times New Roman';   
-            axisHandle.FontSize = 8; 
+            tH.Units = 'inches';
+            tH.OuterPosition = [0 0 3.5 3.5/5*4];
+            newAH = nexttile;
+            copyobj(aH, newAH);
+                
+            % IEEE suggest fonts: Times New Roman, Helvetica, Cambira and Arial
+            newAH.FontName = 'Times New Roman';   
+            
+            % Font size in figure should be 8-10 pts. 
+            newAH.FontSize = 8;  
+
+        case 'elsevieronecolomn'
+            tH.Units = 'centimeters';
+            tH.OuterPosition = [0 0 3.5 3.5/5*4];
+            newAH = nexttile;
+            copyobj(aH, newAH);
+                
+            newAH.FontName = 'Arial';   
+            newAH.FontSize = 8;  
             
         case 'presentation'
-            % Powerpoint default 16:9 slide has size 13.33 * 7.5 inches.
-            figHandle.Position(3) = 9;      % figure use in powerpoint
-            lengthWidthRatio = 10 / 16;
-            
-            % Sans-serif fonts are prefered in presentation scenarios.
-            axisHandle.FontName = 'Arial';   
-            
-            % Matlab would scale font in axis area to 1.1 so the actual
-            % font size is 16*1.1 = 17.6 pts
-            axisHandle.FontSize = 16;       
+   
             
         otherwise
-            if ismac      
-                figHandle.Position(3) = 20;     % default
-            elseif ispc
-                figHandle.Position(3) = 15;
-            end
-            lengthWidthRatio = 9 / 16;
-
-            axisHandle.FontName = 'Arial';   
-            axisHandle.FontSize = 16; 
+            tH.Units = 'centimeters';
+            tH.OuterPosition = size_cm;
+            newAH = nexttile;
+            copyobj(aH, newAH);
+            
     end
     
-    figHandle.Position(4) = lengthWidthRatio * figHandle.Position(3);    
-    figHandle.PaperPosition(4) = lengthWidthRatio * figHandle.PaperPosition(3);
-    
-    % Expand graph to figure area
-    axisHandle.Position = axisHandle.OuterPosition - ...
-        axisHandle.TightInset * [-1 0 1 0; 0 -1 0 1; 0 0 1 0; 0 0 0 1];
+
 end
 
