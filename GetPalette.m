@@ -2,6 +2,11 @@ function [varargout] = GetPalette(varargin)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
+    p = inputParser();
+    addParameter(p, 'Display', false);
+    addParameter(p, )
+    parse(p, varargin{:});
+    
     palette.uchicago = {'#800000', '#767676', '#FFA319', '#8A9045', '#155F83', '#C16622', '#8F3931', '#58593F', '#350E20'};
     palette.uchicago_light = {'#800000', '#D6D6CE', '#FFB547', '#ADB17D', '#5B8FA8', '#D49464', '#B1746F', '#8A8B79', '#725663'};
     palette.uchicago_dark = {'#800000', '#767676', '#CC8214', '#616530', '#0F425C', '#9A5324', '#642822', '#3E3E23', '#350E20'};
@@ -21,7 +26,10 @@ function [varargout] = GetPalette(varargin)
     palette.simpsons = {'#FED439', '#709AE1', '#8A9197', '#D2AF81', '#FD7446', '#D5E4A2', '#197EC0', '#F05C3B', '#46732E', '#71D0F5', '#370335', '#075149', '#C80813', '#91331F', '#1A9993', '#FD8CC1'};
     palette.gsea = {'#4500AC', '#2600D1', '#6B58EE', '#8787FF', '#C6C0FF', '#D4D4FF', '#FFBFE5', '#FF8888', '#FF707F', '#FF5959', '#EE3F3F', '#D60C00'};
     palette.zju = {'#003F88', '#B01F24', '#DCC100', '#86A959', '#F0F7FD', '#A9695D'};
-
+    palette.ieee_foundation = {'#0066A1', '#CE8E00', '#008542', '#000000'};
+    palette.ieee_light = {'#00629B', '#BA0C2F', '#FFA300', '#FFD100', '#78BE20', '#00843D', '#981D97', '#009CA6', '#00B5E2', '#FFFFFF'};
+    palette.ieee_dark = {'#861F41', '#E87722', '#FFC72C', '#658D18', '#006341', '#772583', '#007377', '#002855', '#75787B', '#000000'};
+    
     if nargin > 0
         for ind = 1 : nargin
             colorName = varargin{ind};
@@ -64,6 +72,7 @@ function [varargout] = GetPalette(varargin)
         axis equal
         axis off
         set(gca, 'YDir', 'reverse')
+
     end
     varargout{1} = palette;
 
