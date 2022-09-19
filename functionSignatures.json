@@ -1,0 +1,11 @@
+{
+    "colorpalette":
+    {
+        "inputs":
+        [
+            {"name":"colorName", "kind":"required", "type":["string", "choices={'uchicago', 'uchicago_light', 'uchicago_dark', 'npg', 'nejm', 'lancet', 'jama', 'jco', 'd3', 'locuszoom', 'cosmic', 'cosmic_dark', 'startrek', 'tron', 'futurama', 'rickandmorty', 'simpsons', 'gsea', 'zju', 'ieee_foundation', 'ieee_light', 'ieee_dark'}"], "purpose":"Required color name"},
+            {"name":"Display", "kind":"namevalue", "type":["logical"], "purpose":"Whether display color palette"},
+            {"name":"Format", "kind":"namevalue", "type":["string", "choices={'hex', 'rgb'}"], "purpose":"Format of color palette"}
+        ]
+    }
+}

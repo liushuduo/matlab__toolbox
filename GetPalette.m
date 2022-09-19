@@ -4,9 +4,9 @@ function [varargout] = GetPalette(varargin)
 
     p = inputParser();
     addParameter(p, 'Display', false);
-    addParameter(p, )
     parse(p, varargin{:});
     
+    % all color palette
     palette.uchicago = {'#800000', '#767676', '#FFA319', '#8A9045', '#155F83', '#C16622', '#8F3931', '#58593F', '#350E20'};
     palette.uchicago_light = {'#800000', '#D6D6CE', '#FFB547', '#ADB17D', '#5B8FA8', '#D49464', '#B1746F', '#8A8B79', '#725663'};
     palette.uchicago_dark = {'#800000', '#767676', '#CC8214', '#616530', '#0F425C', '#9A5324', '#642822', '#3E3E23', '#350E20'};
@@ -32,9 +32,7 @@ function [varargout] = GetPalette(varargin)
     
     if nargin > 0
         for ind = 1 : nargin
-            colorName = varargin{ind};
             cPalette = palette.(colorName);
-            
             
             fH = figure();
             nColor = length(cPalette);
